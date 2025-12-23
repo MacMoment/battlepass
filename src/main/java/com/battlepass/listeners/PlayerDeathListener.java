@@ -30,8 +30,9 @@ public class PlayerDeathListener implements Listener {
             PlayerData killerData = plugin.getDataManager().getPlayerData(killer);
             killerData.addKill();
 
-            // Award XP for the kill (3 XP as per original script)
-            XPUtils.addXP(plugin, killer, 3);
+            // Award XP for the kill (configurable)
+            double killXP = plugin.getConfig().getDouble("xp.rewards.player-kill", 3);
+            XPUtils.addXP(plugin, killer, killXP);
         }
     }
 }

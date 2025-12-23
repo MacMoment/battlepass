@@ -103,7 +103,8 @@ public class DataManager {
             try {
                 dataConfig.save(dataFile);
             } catch (IOException e) {
-                plugin.getLogger().severe("Could not save playerdata.yml!");
+                plugin.getLogger().severe("Could not save playerdata.yml: " + e.getMessage());
+                e.printStackTrace();
             }
         });
     }

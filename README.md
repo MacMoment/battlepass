@@ -7,14 +7,33 @@ This is a complete Java rewrite of the original Skript-based battlepass system, 
 ## Features
 
 - **XP & Leveling System**: Players earn XP through various activities and level up
-- **Mining XP**: Earn +2 XP per block mined in survival mode
+- **Ore Mining XP**: Earn +2 XP per ore mined in survival mode (only ores give XP, not regular blocks!)
 - **Kill XP**: Earn +3 XP per player kill
-- **Special Pickaxe**: The Krampus' Candy Cane netherite pickaxe gives +4 XP per block (3% chance for +8 XP)
+- **Special Pickaxe**: The Krampus' Candy Cane netherite pickaxe gives +4 XP per ore (3% chance for +8 XP)
 - **Double XP Events**: Admins can start timed double XP events
 - **Reward System**: Configure text descriptions and item rewards for each level
 - **Interactive GUI**: Beautiful inventory-based GUI for viewing progress and claiming rewards
 - **Data Persistence**: All player data is saved to YAML files
 - **Admin Tools**: Complete set of admin commands for management
+
+## Supported Ores
+
+The following ores award XP when mined:
+
+**Overworld Ores:**
+- Coal Ore (+ Deepslate variant)
+- Iron Ore (+ Deepslate variant)
+- Copper Ore (+ Deepslate variant)
+- Gold Ore (+ Deepslate variant)
+- Redstone Ore (+ Deepslate variant)
+- Emerald Ore (+ Deepslate variant)
+- Lapis Ore (+ Deepslate variant)
+- Diamond Ore (+ Deepslate variant)
+
+**Nether Ores:**
+- Nether Gold Ore
+- Nether Quartz Ore
+- Ancient Debris
 
 ## Commands
 
@@ -63,7 +82,7 @@ The compiled JAR will be in the `target` directory.
 ## Configuration
 
 ### config.yml
-Contains general settings, XP values, and messages.
+Contains general settings, XP values, and messages. All XP values are configurable.
 
 ### playerdata.yml
 Automatically generated file storing all player data (level, xp, kills, blocks mined, claimed rewards).
@@ -73,9 +92,10 @@ Automatically generated file storing reward configurations (text descriptions an
 
 ## XP Formula
 
-The XP required for each level follows an exponential curve:
+The XP required for each level follows an exponential curve (configurable in config.yml):
 ```
-XP Required = 100 × (1.21 ^ (level - 1))
+XP Required = base-xp × (multiplier ^ (level - 1))
+Default: 100 × (1.21 ^ (level - 1))
 ```
 
 | Level | XP Required |
@@ -113,7 +133,7 @@ src/main/java/com/battlepass/
 ├── gui/
 │   └── GUIManager.java        # GUI creation and management
 ├── listeners/
-│   ├── BlockBreakListener.java
+│   ├── BlockBreakListener.java  # Ore detection and XP award
 │   ├── GUIListener.java
 │   ├── PlayerDeathListener.java
 │   └── PlayerJoinListener.java
@@ -122,7 +142,7 @@ src/main/java/com/battlepass/
 │   ├── DoubleXPManager.java   # Double XP event management
 │   └── RewardManager.java     # Reward configuration
 └── utils/
-    ├── ItemUtils.java         # Item creation utilities
+    ├── ItemUtils.java         # Item creation (uses PersistentDataContainer)
     └── XPUtils.java           # XP calculation utilities
 ```
 
@@ -135,6 +155,9 @@ src/main/java/com/battlepass/
 5. **Maintainability**: Well-documented code with clear separation of concerns
 6. **Extensibility**: Easy to add new features or modify existing ones
 7. **Error Handling**: Proper null checks and exception handling
+8. **Configurable XP Values**: All XP rewards are configurable via config.yml
+9. **Reliable Item Detection**: Uses PersistentDataContainer for pickaxe identification
+10. **Ore-Only XP**: Mining XP is only awarded for mining ores, not all blocks
 
 ## License
 

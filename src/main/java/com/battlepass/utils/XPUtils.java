@@ -13,14 +13,24 @@ import org.bukkit.entity.Player;
  */
 public class XPUtils {
 
-    private static final double BASE_XP = 100;
-    private static final double MULTIPLIER = 1.21;
+    // Default values (can be overridden by config)
+    private static final double DEFAULT_BASE_XP = 100;
+    private static final double DEFAULT_MULTIPLIER = 1.21;
 
     /**
-     * Calculates the XP required for a specific level
+     * Calculates the XP required for a specific level using config values
      */
     public static int calculateXPRequired(int level) {
-        double xp = BASE_XP * Math.pow(MULTIPLIER, level - 1);
+        BattlePassPlugin plugin = BattlePassPlugin.getInstance();
+        double baseXP = DEFAULT_BASE_XP;
+        double multiplier = DEFAULT_MULTIPLIER;
+        
+        if (plugin != null && plugin.getConfig() != null) {
+            baseXP = plugin.getConfig().getDouble("xp.base-xp", DEFAULT_BASE_XP);
+            multiplier = plugin.getConfig().getDouble("xp.multiplier", DEFAULT_MULTIPLIER);
+        }
+        
+        double xp = baseXP * Math.pow(multiplier, level - 1);
         return (int) Math.floor(xp);
     }
 

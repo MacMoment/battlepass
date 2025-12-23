@@ -32,8 +32,13 @@ public class ConfirmResetCommand implements CommandExecutor {
 
         Player player = (Player) sender;
         
-        // Get the ResetAllCommand instance to check pending resets
-        ResetAllCommand resetCommand = (ResetAllCommand) plugin.getCommand("resetbattlepassall").getExecutor();
+        // Get the ResetAllCommand instance safely from the plugin
+        ResetAllCommand resetCommand = plugin.getResetAllCommand();
+        
+        if (resetCommand == null) {
+            sender.sendMessage(ChatColor.RED + "Reset system is not available.");
+            return true;
+        }
         
         if (!resetCommand.hasPendingReset(player.getUniqueId())) {
             sender.sendMessage(ChatColor.RED + "No reset pending. Use /resetbattlepassall first.");

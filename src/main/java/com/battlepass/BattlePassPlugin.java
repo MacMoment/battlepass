@@ -22,6 +22,7 @@ public class BattlePassPlugin extends JavaPlugin {
     private RewardManager rewardManager;
     private DoubleXPManager doubleXPManager;
     private GUIManager guiManager;
+    private ResetAllCommand resetAllCommand;
     private boolean locked = false;
 
     @Override
@@ -78,8 +79,12 @@ public class BattlePassPlugin extends JavaPlugin {
         getCommand("bprewardsetup").setExecutor(new RewardSetupCommand(this));
         getCommand("bpreward").setExecutor(new SetRewardCommand(this));
         getCommand("bpadmin").setExecutor(new BPAdminCommand(this));
-        getCommand("resetbattlepassall").setExecutor(new ResetAllCommand(this));
+        
+        // Store reference to ResetAllCommand for use by ConfirmResetCommand
+        this.resetAllCommand = new ResetAllCommand(this);
+        getCommand("resetbattlepassall").setExecutor(resetAllCommand);
         getCommand("confirmresetall").setExecutor(new ConfirmResetCommand(this));
+        
         getCommand("bptop").setExecutor(new BPTopCommand(this));
         getCommand("lockbp").setExecutor(new LockBPCommand(this));
         getCommand("unlockbp").setExecutor(new UnlockBPCommand(this));
@@ -105,6 +110,10 @@ public class BattlePassPlugin extends JavaPlugin {
 
     public GUIManager getGUIManager() {
         return guiManager;
+    }
+
+    public ResetAllCommand getResetAllCommand() {
+        return resetAllCommand;
     }
 
     public boolean isLocked() {

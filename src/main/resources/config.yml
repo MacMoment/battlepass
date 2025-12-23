@@ -20,16 +20,19 @@ xp:
   
   # XP rewards for different actions
   rewards:
-    # XP for mining a block (survival mode only)
+    # XP for mining an ORE (survival mode only)
+    # Note: Only ores give XP, not regular blocks!
+    # Supported ores: Coal, Iron, Copper, Gold, Redstone, Emerald, Lapis, Diamond (+ deepslate variants)
+    #                 Nether Gold, Nether Quartz, Ancient Debris
     block-mine: 2
     
     # XP for killing another player
     player-kill: 3
     
-    # XP for mining with the special pickaxe (normal hit)
+    # XP for mining ores with the special BattlePass pickaxe (normal hit)
     special-pickaxe: 4
     
-    # XP for mining with the special pickaxe (bonus chance)
+    # XP for mining ores with the special pickaxe (bonus chance)
     special-pickaxe-bonus: 8
     
     # Chance for bonus XP with special pickaxe (0.03 = 3%)

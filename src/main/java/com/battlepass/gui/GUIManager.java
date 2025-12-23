@@ -257,8 +257,8 @@ public class GUIManager {
         meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "✦ HOW TO LEVEL UP");
         meta.setLore(Arrays.asList(
             ChatColor.GRAY + "━━━━━━━━━━━━━━━━━━",
-            ChatColor.WHITE + "➥ " + ChatColor.AQUA + "Mine blocks " + ChatColor.GRAY + "(+2.0 XP)",
-            ChatColor.WHITE + "➥ " + ChatColor.GOLD + "Mine with BP Pickaxe " + ChatColor.GRAY + "(+4 to +8 XP)",
+            ChatColor.WHITE + "➥ " + ChatColor.AQUA + "Mine ores " + ChatColor.GRAY + "(+2.0 XP)",
+            ChatColor.WHITE + "➥ " + ChatColor.GOLD + "Mine ores with BP Pickaxe " + ChatColor.GRAY + "(+4 to +8 XP)",
             ChatColor.WHITE + "➥ " + ChatColor.RED + "Kill players " + ChatColor.GRAY + "(+3 XP)",
             "",
             ChatColor.GRAY + "Need " + ChatColor.GREEN + xpNeeded + " XP " + 
