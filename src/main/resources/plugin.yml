@@ -1,0 +1,81 @@
+name: BattlePass
+version: ${project.version}
+main: com.battlepass.BattlePassPlugin
+api-version: 1.20
+description: A fully featured BattlePass plugin for Minecraft servers
+author: BattlePass Team
+
+commands:
+  battlepass:
+    description: Open the BattlePass GUI
+    usage: /<command> [page]
+    aliases: [bp]
+  
+  doublexpevent:
+    description: Start a double XP event
+    usage: /<command> <time>
+    permission: battlepass.admin
+  
+  stopdoublexp:
+    description: Stop the current double XP event
+    usage: /<command>
+    permission: battlepass.admin
+  
+  doublexpstatus:
+    description: Check double XP event status
+    usage: /<command>
+    permission: battlepass.admin
+  
+  bprewardsetup:
+    description: Open the reward setup GUI
+    usage: /<command> [page]
+    permission: battlepass.admin
+  
+  bpreward:
+    description: Set a reward description for a level
+    usage: /<command> <level> <text>
+    permission: battlepass.admin
+  
+  bpadmin:
+    description: Admin commands for managing battlepass
+    usage: /<command> <give|reset> <player> [xp|level] [amount]
+    permission: battlepass.admin
+  
+  resetbattlepassall:
+    description: Reset all battlepass data for all players
+    usage: /<command>
+    permission: battlepass.admin
+  
+  confirmresetall:
+    description: Confirm the battlepass reset
+    usage: /<command>
+    permission: battlepass.admin
+  
+  bptop:
+    description: Show the top battlepass players
+    usage: /<command>
+  
+  lockbp:
+    description: Lock the battlepass (prevent XP gain)
+    usage: /<command>
+    permission: battlepass.admin
+  
+  unlockbp:
+    description: Unlock the battlepass
+    usage: /<command>
+    permission: battlepass.admin
+  
+  bpstatus:
+    description: Check battlepass status
+    usage: /<command>
+    permission: battlepass.admin
+  
+  bppickaxe:
+    description: Give the special BattlePass pickaxe
+    usage: /<command> [player]
+    permission: battlepass.admin
+
+permissions:
+  battlepass.admin:
+    description: Allows access to all battlepass admin commands
+    default: op

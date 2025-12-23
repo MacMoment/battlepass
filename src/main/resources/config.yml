@@ -1,0 +1,53 @@
+# BattlePass Configuration
+# ========================
+
+# General Settings
+settings:
+  # Maximum number of levels in the battlepass
+  max-levels: 70
+  
+  # Number of pages in the battlepass GUI
+  max-pages: 10
+
+# XP Settings
+xp:
+  # Base XP required for level 1
+  base-xp: 100
+  
+  # Multiplier for each subsequent level (exponential growth)
+  # Formula: baseXP * (multiplier ^ (level - 1))
+  multiplier: 1.21
+  
+  # XP rewards for different actions
+  rewards:
+    # XP for mining an ORE (survival mode only)
+    # Note: Only ores give XP, not regular blocks!
+    # Supported ores: Coal, Iron, Copper, Gold, Redstone, Emerald, Lapis, Diamond (+ deepslate variants)
+    #                 Nether Gold, Nether Quartz, Ancient Debris
+    block-mine: 2
+    
+    # XP for killing another player
+    player-kill: 3
+    
+    # XP for mining ores with the special BattlePass pickaxe (normal hit)
+    special-pickaxe: 4
+    
+    # XP for mining ores with the special pickaxe (bonus chance)
+    special-pickaxe-bonus: 8
+    
+    # Chance for bonus XP with special pickaxe (0.03 = 3%)
+    special-pickaxe-bonus-chance: 0.03
+
+# Messages
+messages:
+  # Prefix for all plugin messages (use & for color codes)
+  prefix: "&6[BattlePass] "
+  
+  # Level up message
+  level-up: "&6&lLEVEL UP! &eYou are now level &6%level%&e!"
+  
+  # Claim reward message
+  claim-reward: "&7Open &e/bp &7to claim your reward!"
+
+# Don't modify this
+config-version: 1
