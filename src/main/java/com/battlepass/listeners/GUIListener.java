@@ -207,13 +207,14 @@ public class GUIListener implements Listener {
             int startLevel = ((currentPage - 1) * 21) + 1;
             int adjustedSlot = slot - 10;
             
-            // Calculate which level was clicked
-            int rowOffset = 0;
-            if (slot >= 19) rowOffset++;
-            if (slot >= 28) rowOffset++;
-            if (slot >= 37) rowOffset++;
+            // Calculate which level was clicked by counting skipped slots
+            // Skipped slots: 17-18 (2 slots), 26-27 (2 slots), 35-36 (2 slots)
+            int skippedSlots = 0;
+            if (slot >= 19) skippedSlots += 2; // slots 17-18 skipped
+            if (slot >= 28) skippedSlots += 2; // slots 26-27 skipped
+            if (slot >= 37) skippedSlots += 2; // slots 35-36 skipped
             
-            int clickedLevel = startLevel + adjustedSlot - rowOffset;
+            int clickedLevel = startLevel + adjustedSlot - skippedSlots;
             
             if (clickedLevel > 70) return;
 
