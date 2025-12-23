@@ -19,8 +19,15 @@ public class XPUtils {
 
     /**
      * Calculates the XP required for a specific level using config values
+     * @param level The level to calculate XP for (must be >= 1)
+     * @return The XP required for the given level
      */
     public static int calculateXPRequired(int level) {
+        // Validate level is positive
+        if (level < 1) {
+            level = 1;
+        }
+        
         BattlePassPlugin plugin = BattlePassPlugin.getInstance();
         double baseXP = DEFAULT_BASE_XP;
         double multiplier = DEFAULT_MULTIPLIER;
@@ -72,11 +79,19 @@ public class XPUtils {
             data.subtractXp(xpNeeded);
             data.addLevel(1);
             
-            player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "LEVEL UP! " + 
-                             ChatColor.YELLOW + "You are now level " + ChatColor.GOLD + data.getLevel() + 
-                             ChatColor.YELLOW + "!");
-            player.sendMessage(ChatColor.GRAY + "Open " + ChatColor.YELLOW + "/bp " + 
-                             ChatColor.GRAY + "to claim your reward!");
+            // Get configurable messages
+            String levelUpMsg = plugin.getConfig().getString("messages.level-up", 
+                "&6&lLEVEL UP! &eYou are now level &6%level%&e!");
+            String claimMsg = plugin.getConfig().getString("messages.claim-reward", 
+                "&7Open &e/bp &7to claim your reward!");
+            
+            // Replace placeholders and translate color codes
+            levelUpMsg = ChatColor.translateAlternateColorCodes('&', 
+                levelUpMsg.replace("%level%", String.valueOf(data.getLevel())));
+            claimMsg = ChatColor.translateAlternateColorCodes('&', claimMsg);
+            
+            player.sendMessage(levelUpMsg);
+            player.sendMessage(claimMsg);
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
 
             // Check for next level

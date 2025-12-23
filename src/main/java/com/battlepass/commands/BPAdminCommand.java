@@ -68,6 +68,12 @@ public class BPAdminCommand implements CommandExecutor {
             return;
         }
 
+        // Validate amount is positive
+        if (amount <= 0) {
+            sender.sendMessage(ChatColor.RED + "Amount must be a positive number!");
+            return;
+        }
+
         @SuppressWarnings("deprecation")
         OfflinePlayer target = Bukkit.getOfflinePlayer(playerName);
         
