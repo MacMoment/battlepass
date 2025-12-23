@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -298,6 +299,30 @@ public class GUIListener implements Listener {
         if (title.contains("BP Items Level")) {
             // Clear item setup data on close (items not saved)
             plugin.getGUIManager().clearItemSetupData(player.getUniqueId());
+        }
+    }
+
+    @EventHandler
+    public void onInventoryDrag(InventoryDragEvent event) {
+        if (!(event.getWhoClicked() instanceof Player)) return;
+        
+        String title = event.getView().getTitle();
+        
+        // Allow dragging in Item Setup GUI (slots 18-44 only)
+        if (title.contains("BP Items Level")) {
+            // Check if any dragged slot is outside the allowed range (18-44)
+            for (int slot : event.getRawSlots()) {
+                if (slot < 18 || slot > 44) {
+                    event.setCancelled(true);
+                    return;
+                }
+            }
+            return;
+        }
+        
+        // Cancel dragging in all other BattlePass GUIs
+        if (title.contains("BATTLEPASS") || title.contains("Reward Setup")) {
+            event.setCancelled(true);
         }
     }
 
