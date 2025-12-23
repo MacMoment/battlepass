@@ -27,6 +27,10 @@ public class GUIListener implements Listener {
 
     private final BattlePassPlugin plugin;
     private static final int LEVELS_PER_PAGE = 7;
+    
+    // Item Setup GUI slot range for placing reward items
+    private static final int ITEM_SETUP_SLOT_MIN = 18;
+    private static final int ITEM_SETUP_SLOT_MAX = 44;
 
     public GUIListener(BattlePassPlugin plugin) {
         this.plugin = plugin;
@@ -245,8 +249,8 @@ public class GUIListener implements Listener {
     private void handleItemSetupClick(InventoryClickEvent event, Player player) {
         int slot = event.getRawSlot();
         
-        // Allow interaction with item slots (18-44)
-        if (slot >= 18 && slot <= 44) {
+        // Allow interaction with item slots
+        if (slot >= ITEM_SETUP_SLOT_MIN && slot <= ITEM_SETUP_SLOT_MAX) {
             // Allow item placement/removal
             return;
         }
@@ -263,7 +267,7 @@ public class GUIListener implements Listener {
             // Save items
             List<ItemStack> items = new ArrayList<>();
             Inventory inv = event.getInventory();
-            for (int i = 18; i <= 44; i++) {
+            for (int i = ITEM_SETUP_SLOT_MIN; i <= ITEM_SETUP_SLOT_MAX; i++) {
                 ItemStack item = inv.getItem(i);
                 if (item != null && item.getType() != Material.AIR) {
                     items.add(item.clone());
@@ -308,11 +312,11 @@ public class GUIListener implements Listener {
         
         String title = event.getView().getTitle();
         
-        // Allow dragging in Item Setup GUI (slots 18-44 only)
+        // Allow dragging in Item Setup GUI (only in item slots)
         if (title.contains("BP Items Level")) {
-            // Check if any dragged slot is outside the allowed range (18-44)
+            // Check if any dragged slot is outside the allowed range
             for (int slot : event.getRawSlots()) {
-                if (slot < 18 || slot > 44) {
+                if (slot < ITEM_SETUP_SLOT_MIN || slot > ITEM_SETUP_SLOT_MAX) {
                     event.setCancelled(true);
                     return;
                 }
